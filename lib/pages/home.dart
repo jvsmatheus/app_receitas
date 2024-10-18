@@ -1,3 +1,4 @@
+import 'package:app_receitas/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,39 +9,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: Column(
+    return const Scaffold(
+        appBar: AppBarCustom(),
+        body: Flex(
+          direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+              child: Text(
+                "RECEITAS",
+                style: TextStyle(
+                  fontSize: 24, // Aumenta o tamanho da fonte para dar destaque
+                  fontWeight: FontWeight.bold, // Deixa o texto negrito
+                  letterSpacing:
+                      2, // Adiciona espaçamento entre as letras para um efeito estilizado
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
+        ));
   }
 }
