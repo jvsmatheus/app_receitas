@@ -11,13 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
+      title: 'SaborCraft',
       theme: ThemeData(
         fontFamily: 'DM-Serif-Display',
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(), // A splash screen será carregada primeiro
+      home: SafeArea(
+        child: HomePage(),
+      ),
     );
   }
 }
