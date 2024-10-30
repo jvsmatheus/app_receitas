@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/search.dart'; // Importe a sua página de pesquisa
 
 class MenuBarCustom extends StatefulWidget {
   const MenuBarCustom({super.key});
@@ -12,28 +13,40 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
 
   // Lista de telas para cada opção da bottom bar
   final List<Widget> _screens = [
-    const Center(child: Text('Home Screen')),
-    const Center(child: Text('Search Screen')),
-    const Center(child: Text('Menu')),
-    const Center(child: Text('Profile Screen')),
+    Center(child: Text('Home Screen')),
+    Center(child: Text('Search Screen')),
+    Center(child: Text('Menu')),
+    Center(child: Text('Profile Screen')),
   ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    // Verifica se o índice é o da página de pesquisa e navega para a SearchPage
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                SearchPage()), // Substitua SearchPage pelo nome da sua página de pesquisa
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      backgroundColor: Colors.white, 
-      selectedItemColor: const Color.fromARGB(255, 0, 0, 0), 
-      unselectedItemColor: Colors.grey, 
-      showSelectedLabels: true, 
-      showUnselectedLabels: true, 
-      selectedFontSize: 16, 
-      unselectedFontSize: 14, 
+      onTap: _onItemTapped,
+      backgroundColor: Colors.white,
+      selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+      unselectedItemColor: Colors.grey,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      selectedFontSize: 16,
+      unselectedFontSize: 14,
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
@@ -45,8 +58,8 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
           label: 'Pesquisar',
         ),
         BottomNavigationBarItem(
-        icon: Icon(Icons.menu_book),
-        label: 'Menu',
+          icon: Icon(Icons.menu_book),
+          label: 'Menu',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
