@@ -12,31 +12,31 @@ class RecipeCard extends StatelessWidget {
         onTap: () {
           debugPrint('Card tapped.');
         },
-        child: const SizedBox(
+        child: SizedBox(
           width: 400,
           height: 100,
           child: Row(
             children: [
-              Image(
-                image: AssetImage('assets/images/load.png'),
-                width: 100,
-                height: 200,
+              Image.asset(
+                'assets/images/recipes/frango-agridoce.jpg',
+                fit: BoxFit.fitWidth, // ou outra opção como 'cover', 'fitWidth', etc.
+                width: 175,  // Define a largura fixa
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Titulo",
+                      "Frango Agridoce",
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 2,
                       ),
                     ),
                     Text(
-                      "Categoria da Receita",
+                      "Agridoce",
                       style: TextStyle(
                         fontSize: 15,
                         letterSpacing: 2,

@@ -1,4 +1,5 @@
 import 'package:app_receitas/widgets/app_bar.dart';
+import 'package:app_receitas/widgets/menu_bar.dart';
 import 'package:app_receitas/widgets/recipe_card.dart';
 import 'package:flutter/material.dart';
 
@@ -10,15 +11,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int t = 10;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarCustom(),
+      appBar: const AppBarCustom(),
       body: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
+        padding: const EdgeInsets.all(10.0),
+        child: ListView(
           children: [
-            Flex(
+            const Flex(
               direction: Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -38,11 +40,12 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 30.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 0, vertical: 30.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Favoritos",
                     style: TextStyle(
                       fontSize: 24,
@@ -51,19 +54,32 @@ class _HomePageState extends State<HomePage> {
                     ),
                     textAlign: TextAlign.start,
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.black,
                     thickness: 2.0,
                   ),
-                  RecipeCard(),
-                  RecipeCard(),
-                  RecipeCard(),
+                  SizedBox(
+                    height:
+                        500, // Defina a altura desejada para o container de ListView
+                    child: ListView.separated(
+                      itemCount: 4, // Número de RecipeCards
+                      itemBuilder: (context, index) {
+                        return const RecipeCard();
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                            height: 20); // Espaço entre os cards
+                      },
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
+      bottomNavigationBar: const MenuBarCustom(),
     );
   }
 }
