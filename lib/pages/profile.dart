@@ -27,7 +27,7 @@ class Profile extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/user.jpg'), // Verifique o caminho da imagem
+                    backgroundImage: AssetImage('assets/images/user.jpg'),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -52,19 +52,6 @@ class Profile extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  // Adicione a ação do botão "Veja todos" aqui
-                },
-                child: Text(
-                  'Veja todos',
-                  style: TextStyle(fontSize: 16, color: Colors.blue),
-                ),
               ),
             ),
           ],

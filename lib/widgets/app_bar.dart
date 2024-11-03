@@ -5,16 +5,15 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1, // Adiciona uma borda sutil para destacar o AppBar
-        centerTitle: true, // Centraliza o título no AppBar
-        title: const Text(
+    return AppBar(
+      elevation: 5, // Adiciona uma borda sutil para destacar o AppBar
+      centerTitle: true, // Centraliza o título no AppBar
+      title: const Padding(
+        padding: EdgeInsets.all(15.0),
+        child: Text(
           "SABORCRAFT",
           style: TextStyle(
-            fontWeight: FontWeight.bold, // Fonte negrito
+            // fontFamily: , // Fonte negrito
             color: Colors.black, // Deixa o título na cor preta
           ),
         ),
