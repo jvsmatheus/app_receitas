@@ -12,11 +12,11 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
   int _currentIndex = 0;
 
   // Lista de telas para cada opção da bottom bar
-  final List<Widget> _screens = [
-    const Center(child: Text('Home Screen')),
-    const Center(child: Text('Menu')),
-    const Center(child: Text('Profile Screen')),
-  ];
+  // final List<Widget> _screens = [
+  //   const Center(child: Text('Home Screen')),
+  //   const Center(child: Text('Menu')),
+  //   const Center(child: Text('Profile Screen')),
+  // ];
 
   void _onItemTapped(int index) {
     setState(() {

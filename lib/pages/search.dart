@@ -1,10 +1,7 @@
-import 'package:app_receitas/widgets/app_bar.dart';
 import 'package:app_receitas/widgets/menu_bar.dart';
-import 'package:app_receitas/widgets/recipe_card.dart';
 import 'package:flutter/material.dart';
 
 
-import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

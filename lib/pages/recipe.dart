@@ -1,5 +1,4 @@
 import 'package:app_receitas/models/recipe.dart';
-import 'package:app_receitas/widgets/app_bar.dart';
 import 'package:app_receitas/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 

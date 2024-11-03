@@ -1,4 +1,5 @@
 import 'package:app_receitas/pages/home.dart';
+import 'package:app_receitas/pages/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: const SafeArea(
-        child: HomePage(),
+        child: LoginPage(),
       ),
     );
   }
