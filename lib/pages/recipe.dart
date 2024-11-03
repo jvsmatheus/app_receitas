@@ -31,7 +31,7 @@ class _RecipePageState extends State<RecipePage> {
         appBar: AppBar(
           title: Text(widget.recipe.name),
           elevation: 0, // Remove a sombra da AppBar
-          actions: const [FavoriteButton()],
+          actions: [FavoriteButton(recipe: widget.recipe,)],
         ),
         body: SingleChildScrollView(
           child: Column(

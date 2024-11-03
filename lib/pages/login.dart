@@ -1,6 +1,8 @@
 import 'package:app_receitas/pages/home.dart';
+import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,23 +21,22 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    bool isAuthenticated = false;
-
     for (var item in repository) {
       if (email == item.email && password == item.password) {
-        isAuthenticated = true;
-        break;
+        Provider.of<UserProvider>(context, listen: false).setUser(item);
+        
+        // Substitui a tela de login pela tela inicial
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+        return;
       }
     }
 
-    if (isAuthenticated) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('E-mail ou senha incorretos.')),
-      );
-    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('E-mail ou senha incorretos.')),
+    );
   }
 
   @override
