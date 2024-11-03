@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../pages/search.dart'; // Importe a sua página de pesquisa
+import '../pages/search.dart';
+import '../pages/profile.dart'; // Importe a página de perfil corretamente
 
 class MenuBarCustom extends StatefulWidget {
   const MenuBarCustom({super.key});
@@ -24,13 +25,19 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
       _currentIndex = index;
     });
 
-    // Verifica se o índice é o da página de pesquisa e navega para a SearchPage
+    // Navegação para a SearchPage quando o índice for 1
     if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) =>
-                SearchPage()), // Substitua SearchPage pelo nome da sua página de pesquisa
+        MaterialPageRoute(builder: (context) => SearchPage()),
+      );
+    }
+
+    // Navegação para a Profile quando o índice for 3
+    if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Profile()), // Chame a Profile corretamente
       );
     }
   }
