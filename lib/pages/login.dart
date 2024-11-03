@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
     for (var item in repository) {
       if (email == item.email && password == item.password) {
         Provider.of<UserProvider>(context, listen: false).setUser(item);
-        
+
         // Substitui a tela de login pela tela inicial
         Navigator.pushReplacement(
           context,
