@@ -1,19 +1,34 @@
-import 'package:app_receitas/pages/home.dart';
-import 'package:app_receitas/widgets/menu_bar.dart';
+import 'package:app_receitas/models/recipe.dart';
+import 'package:app_receitas/pages/login.dart';
+import 'package:app_receitas/pages/recipe.dart';
+import 'package:app_receitas/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
+
+    recipeDetails(Recipe recipe) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => RecipePage(recipe: recipe)));
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meu Perfil'),
+        title: const Text('Meu Perfil'),
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {},
+            icon: const Icon(Icons.logout_outlined),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
           ),
         ],
       ),
@@ -25,39 +40,67 @@ class Profile extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/user.jpg'),
+                    // backgroundImage: AssetImage('assets/images/user.jpg'),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
-                    'João Guilherme',
-                    style: TextStyle(
+                    user?.name ?? 'Usuário',
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                    user?.description ?? '',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey),
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Receitas favoritas',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 10),
+            
+            // Lista de Receitas Favoritas
+            Expanded(
+              child: user?.favorites.isNotEmpty == true
+                  ? ListView.builder(
+                      itemCount: user!.favorites.length,
+                      itemBuilder: (context, index) {
+                        final recipe = user.favorites[index];
+                        return Card(
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: AssetImage(recipe.image),
+                            ),
+                            title: Text(recipe.name),
+                            subtitle: Text(recipe.type),
+                            onTap: () => recipeDetails(recipe),
+                          ),
+                        );
+                      },
+                    )
+                  : const Center(
+                      child: Text(
+                        'Nenhuma receita favorita encontrada.',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: const MenuBarCustom(),
     );
   }
 }

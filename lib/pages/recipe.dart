@@ -1,5 +1,4 @@
 import 'package:app_receitas/models/recipe.dart';
-import 'package:app_receitas/widgets/app_bar.dart';
 import 'package:app_receitas/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,7 @@ class _RecipePageState extends State<RecipePage> {
         appBar: AppBar(
           title: Text(widget.recipe.name),
           elevation: 0, // Remove a sombra da AppBar
-          actions: const [FavoriteButton()],
+          actions: [FavoriteButton(recipe: widget.recipe,)],
         ),
         body: SingleChildScrollView(
           child: Column(

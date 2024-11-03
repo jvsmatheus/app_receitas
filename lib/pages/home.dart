@@ -1,7 +1,9 @@
 import 'package:app_receitas/widgets/app_bar.dart';
 import 'package:app_receitas/widgets/favorite_recipes.dart';
 import 'package:app_receitas/widgets/menu_bar.dart';
+import 'package:app_receitas/repositories/recipe_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:app_receitas/models/recipe.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +14,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
+  List<Recipe> _filteredRecipes = RecipeRepository.table; // Lista filtrada
+
+  void _filterRecipes(String query) {
+    final allRecipes = RecipeRepository.table;
+    setState(() {
+      _filteredRecipes = allRecipes
+          .where((recipe) =>
+              recipe.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.search),
                       onPressed: () {
-                        print(_searchController.text);
+                        _filterRecipes(_searchController.text);
                       },
                     ),
                     border: OutlineInputBorder(
@@ -42,12 +55,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onFieldSubmitted: (value) {
-                    print(value);
+                    _filterRecipes(value);
+                  },
+                  onChanged: (value) {
+                    _filterRecipes(value);
                   },
                 ),
               ),
             ),
-            const Flexible(flex: 5, child: FavoriteRecipes()),
+            Flexible(
+              flex: 5,
+              child: FavoriteRecipes(recipes: _filteredRecipes),
+            ),
           ],
         ),
       ),
