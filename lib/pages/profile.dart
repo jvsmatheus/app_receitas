@@ -1,3 +1,5 @@
+import 'package:app_receitas/pages/home.dart';
+import 'package:app_receitas/widgets/menu_bar.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -11,9 +13,7 @@ class Profile extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
-            onPressed: () {
-              // Adicione ação de edição se necessário
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -57,6 +57,7 @@ class Profile extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: const MenuBarCustom(),
     );
   }
 }

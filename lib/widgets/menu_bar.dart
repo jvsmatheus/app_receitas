@@ -24,7 +24,7 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
     if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Profile()), 
+        MaterialPageRoute(builder: (context) => const Profile()), 
       );
     }
   }
