@@ -7,6 +7,7 @@ class Recipe {
   String type;
 
   Recipe({
+    this.id,
     required this.name,
     required this.ingredients,
     required this.prepare,

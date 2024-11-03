@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SaborCraft',
       theme: ThemeData(
-        fontFamily: 'DM-Serif-Display',
-        primarySwatch: Colors.blue,
+        // fontFamily: 'DM-Serif-Display',
+        // primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
       home: const SafeArea(

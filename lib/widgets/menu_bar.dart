@@ -13,7 +13,6 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
   // Lista de telas para cada opção da bottom bar
   final List<Widget> _screens = [
     const Center(child: Text('Home Screen')),
-    const Center(child: Text('Search Screen')),
     const Center(child: Text('Menu')),
     const Center(child: Text('Profile Screen')),
   ];
@@ -39,10 +38,6 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Pesquisar',
         ),
         BottomNavigationBarItem(
         icon: Icon(Icons.menu_book),

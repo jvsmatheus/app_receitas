@@ -1,6 +1,6 @@
 import 'package:app_receitas/widgets/app_bar.dart';
+import 'package:app_receitas/widgets/favorite_recipes.dart';
 import 'package:app_receitas/widgets/menu_bar.dart';
-import 'package:app_receitas/widgets/recipe_card.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,72 +11,43 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int t = 10;
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: const AppBarCustom(),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+        child: Column(
           children: [
-            const Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-                  child: Text(
-                    "RECEITAS",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
+            Flexible(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextFormField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Pesquisar...',
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 10.0),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {
+                        print(_searchController.text);
+                      },
                     ),
-                    textAlign: TextAlign.center,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
+                  onFieldSubmitted: (value) {
+                    print(value);
+                  },
                 ),
-              ],
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 0, vertical: 30.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Favoritos",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                  const Divider(
-                    color: Colors.black,
-                    thickness: 2.0,
-                  ),
-                  SizedBox(
-                    height:
-                        500, // Defina a altura desejada para o container de ListView
-                    child: ListView.separated(
-                      itemCount: 4, // Número de RecipeCards
-                      itemBuilder: (context, index) {
-                        return const RecipeCard();
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                            height: 20); // Espaço entre os cards
-                      },
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                    ),
-                  ),
-                ],
               ),
             ),
+            const Flexible(flex: 5, child: FavoriteRecipes()),
           ],
         ),
       ),
@@ -84,6 +55,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-    
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 }
