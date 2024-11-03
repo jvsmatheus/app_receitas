@@ -1,6 +1,4 @@
-import 'package:app_receitas/models/recipe.dart';
 import 'package:app_receitas/models/user.dart';
-import 'package:app_receitas/repositories/recipe_repository.dart';
 
 class UserRepository {
   static final List<User> table = [
