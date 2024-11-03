@@ -14,7 +14,7 @@ class Profile extends StatelessWidget {
     final user = Provider.of<UserProvider>(context).user;
 
     recipeDetails(Recipe recipe) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => RecipePage(recipe: recipe)));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => RecipePage(recipe: recipe)));
     }
 
     return Scaffold(
