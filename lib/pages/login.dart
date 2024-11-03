@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   // Navegar para a página de recuperação de senha
                 },
-                child: const Text('Esqueceu a senha?'),
+                child: const Text('Criar conta'),
               ),
             ],
           ),
