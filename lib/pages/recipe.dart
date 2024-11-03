@@ -30,7 +30,6 @@ class _RecipePageState extends State<RecipePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.recipe.name),
-          elevation: 0, // Remove a sombra da AppBar
           actions: [FavoriteButton(recipe: widget.recipe,)],
         ),
         body: SingleChildScrollView(

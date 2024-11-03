@@ -1,3 +1,4 @@
+import 'package:app_receitas/pages/profile.dart';
 import 'package:app_receitas/widgets/app_bar.dart';
 import 'package:app_receitas/widgets/favorite_recipes.dart';
 import 'package:app_receitas/widgets/menu_bar.dart';
@@ -29,7 +30,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarCustom(),
+      appBar: AppBar(
+        title: const Text("SABORCRAFT"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (_) => const Profile())
+              );
+            },
+             icon: const Icon(
+              Icons.person
+             )
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
         child: Column(
@@ -70,7 +87,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: const MenuBarCustom(),
     );
   }
 
