@@ -1,16 +1,109 @@
 # app_receitas
 
-A new Flutter project.
+Integrantes do Projeto
+- Gustavo Vicente Ozorio
+- Matheus Jose Vieira dos Santos
 
-## Getting Started
+## Atividades Gerais
+- Gustavo Vicente Ozorio
+  - Criação de tela perfil
+  - Criação de tela de cadastro
+  - Navegação entre telas
+ 
+- Matheus Jose Vieira dos Santos
+    - Criação tela de receitas
+    - Criação de home page
+    - Criação de login
 
-This project is a starting point for a Flutter application.
+## Usuario para teste
+Usuarios para login:
+login: teste@gmail.com
+senha: 12345
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# App de Receitas
+
+- Foi realizado crição de um app para visualização de receitas culinarias. 
+- O usuario pode adicionar receitas favoritas ao seu perfil por meio do icone de "coração".
+- Pode marcar os ingredientes já usados em sua receita escolida
+- Pesquisar por receitas especificas
+
+## Pré-requisitos
+
+Certifique-se de que seu ambiente de desenvolvimento está configurado para rodar projetos Flutter:
+
+1. **Flutter SDK**: Instale a versão mais recente do Flutter seguindo a [documentação oficial](https://flutter.dev/docs/get-started/install).
+2. **Editor de Código**: Recomendamos o [Visual Studio Code](https://code.visualstudio.com/) ou o [Android Studio](https://developer.android.com/studio).
+3. **Dispositivo**: Tenha um dispositivo físico ou emulador configurado para rodar o aplicativo.
+
+## Passos para Configuração
+
+1. **Clone o repositório**:
+
+    ```bash
+   https://github.com/jvsmatheus/app_receitas.git
+    ```
+
+2. **Navegue até o diretório do projeto**:
+
+    ```bash
+    cd app_receitas
+    ```
+
+3. **Instale as dependências**:
+
+    O Flutter irá buscar automaticamente todas as dependências necessárias definidas no `pubspec.yaml`.
+
+    ```bash
+    flutter pub get
+    ```
+
+## Executando o Projeto
+
+1. **Conecte um dispositivo** ou inicie um emulador:
+    - Para Android, abra um emulador no Android Studio.
+      
+2. **Execute o aplicativo**:
+
+    ```bash
+    flutter run
+    ```
+
+    O comando acima compilará e rodará o aplicativo no dispositivo ou emulador conectado.
+
+## Estrutura do Projeto
+
+Aqui estão os principais diretórios e arquivos do projeto:
+
+- **lib/**: Contém o código principal do aplicativo.
+  - **models/**: Modelos de dados, como `User` e `Recipe`.
+  - **pages/**: Páginas da interface, como `LoginPage`, `RegistrationPage` e `Profile`.
+  - **providers/**: Gerenciadores de estado, como `UserProvider`.
+  - **widgets/**: Componentes reutilizáveis, como `FavoriteButton` e `MenuBarCustom`.
+
+- **pubspec.yaml**: Arquivo de configuração do projeto onde estão listadas todas as dependências.
+
+## Dependências Utilizadas
+
+- **Provider**: Para gerenciamento de estado.
+
+## Notas
+
+- Certifique-se de que seu emulador ou dispositivo físico está funcionando corretamente antes de executar o aplicativo.
+- Consulte a [documentação do Flutter](https://flutter.dev/docs) para obter ajuda adicional sobre o desenvolvimento de aplicativos Flutter.
+
+---
+## Funcionalidades Faltantes/problemas
+- Registro de novo usuario
+    - Como os usuarios estão mockados, enfrentamos problemas na criação e armazenamento de um novo usuario
+- Avatar do usuario
+    - Não conseguimos fazer o flutter reconhecer as imagens, algumas funcionam e outras não. Não conseguimos identificar o problema
+
+## Problemas Conhecidos
+
+Caso ocorra algum problema com permissões ou configurações de ambiente, tente executar:
+
+```bash
+flutter doctor
+
