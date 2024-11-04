@@ -1,7 +1,5 @@
 import 'package:app_receitas/pages/profile.dart';
-import 'package:app_receitas/widgets/app_bar.dart';
 import 'package:app_receitas/widgets/favorite_recipes.dart';
-import 'package:app_receitas/widgets/menu_bar.dart';
 import 'package:app_receitas/repositories/recipe_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:app_receitas/models/recipe.dart';

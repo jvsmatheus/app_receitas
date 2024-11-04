@@ -24,6 +24,7 @@ class Profile extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout_outlined),
             onPressed: () {
+              Provider.of<UserProvider>(context,listen: false).clearUser();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginPage()),

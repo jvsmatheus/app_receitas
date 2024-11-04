@@ -1,4 +1,5 @@
 import 'package:app_receitas/pages/home.dart';
+import 'package:app_receitas/pages/register.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -104,10 +105,12 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 20),
 
-              // Texto de "Esqueceu a senha?"
               TextButton(
                 onPressed: () {
-                  // Navegar para a página de recuperação de senha
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const RegistrationPage()));
                 },
                 child: const Text('Criar conta'),
               ),
