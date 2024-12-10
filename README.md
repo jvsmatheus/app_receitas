@@ -38,6 +38,9 @@ senha: 12345
 - O usuario pode adicionar receitas favoritas ao seu perfil por meio do icone de "coração".
 - Pode marcar os ingredientes já usados em sua receita escolida
 - Pesquisar por receitas especificas
+- Entrega 2:
+  - Cadastro de novos usuarios
+  - Login de usuario
 
 ## Pré-requisitos
 
