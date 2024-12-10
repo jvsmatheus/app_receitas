@@ -1,5 +1,6 @@
 import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/providers/user_provider.dart';
+import 'package:app_receitas/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -143,7 +144,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _register,
+                  onPressed: () async {
+                    await AuthService().signup(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      name: _nameController.text,
+                      description: _descriptionController.text
+                    );
+                  },
                   child: const Text('Cadastrar'),
                 ),
               ),
