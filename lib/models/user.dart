@@ -1,22 +1,19 @@
 // lib/models/user.dart
 import 'package:app_receitas/models/recipe.dart';
 
-class User {
-  static int _idCounter = 0; 
+class UserModel {
 
-  final int id;
+  late final String id;
   final String name;
   final String email;
   final String password;
-  final String description;
   final List<Recipe> favorites;
 
-  User({
+  UserModel({
     required this.name,
     required this.email,
     required this.password,
-    this.description = '',
     this.favorites = const [], 
-  }): id = _idCounter++; 
+  });
 }
 

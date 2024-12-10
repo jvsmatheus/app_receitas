@@ -3,16 +3,19 @@ import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/models/recipe.dart';
 
 class UserProvider extends ChangeNotifier {
-  User? _user;
+  UserModel? _user;
 
-  User? get user => _user;
+  UserModel? get user => _user;
 
-  void setUser(User user) {
+  void setUser(UserModel user) {
     _user = user;
     notifyListeners();
   }
 
+  bool get isLoggedIn => _user != null;
+
   void toggleFavorite(Recipe recipe) {
+    print(_user);
     if (_user != null) {
       if (_user!.favorites.contains(recipe)) {
         _user!.favorites.remove(recipe);

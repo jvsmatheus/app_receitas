@@ -2,6 +2,7 @@ import 'package:app_receitas/models/recipe.dart';
 import 'package:app_receitas/pages/login.dart';
 import 'package:app_receitas/pages/recipe.dart';
 import 'package:app_receitas/providers/user_provider.dart';
+import 'package:app_receitas/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,8 @@ class Profile extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout_outlined),
-            onPressed: () {
+            onPressed: () async {
+              await AuthService().signout(context: context);
               Provider.of<UserProvider>(context,listen: false).clearUser();
               Navigator.pushReplacement(
                 context,
@@ -54,11 +56,6 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  Text(
-                    user?.description ?? '',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.grey),
-                  ),
                 ],
               ),
             ),

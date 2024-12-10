@@ -22,12 +22,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   void _register() {
     if (_formKey.currentState!.validate()) {
-      final newUser = User
+      final newUser = UserModel
       (
         email: _emailController.text,
         name: _nameController.text,
         password: _passwordController.text,
-        description: _descriptionController.text,
       );
       Provider.of<UserProvider>(context,listen: false).setUser(newUser);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -120,24 +119,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
-
-              // Campo de descrição
-              TextFormField(
-                controller: _descriptionController,
-                decoration: const InputDecoration(
-                  labelText: 'Descrição',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.description),
-                ),
-                maxLines: 3,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira uma descrição';
-                  }
-                  return null;
-                },
-              ),
               const SizedBox(height: 24),
 
               // Botão de cadastro
@@ -149,7 +130,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       email: _emailController.text,
                       password: _passwordController.text,
                       name: _nameController.text,
-                      description: _descriptionController.text,
                       context: context
                     );
                   },
