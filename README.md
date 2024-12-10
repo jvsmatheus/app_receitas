@@ -9,12 +9,22 @@ Integrantes do Projeto
   - Criação de tela perfil
   - Criação de tela de cadastro
   - Navegação entre telas
+    Entrega 2 :
+    - Estrutura de banco firebase
+    - Configuração AuthCheck
+    - Autenticação Login
+    - Registro de novo usuario
  
 - Matheus Jose Vieira dos Santos
     - Criação tela de receitas
     - Criação de home page
     - Criação de login
-
+      Entrega 2 :
+      - Estrutura de banco firebase
+      - Configuração AuthCheck
+      - Autenticação Login
+      - Registro de novo usuario
+      - 
 ## Usuario para teste
 Usuarios para login:
 login: teste@gmail.com
@@ -81,6 +91,7 @@ Aqui estão os principais diretórios e arquivos do projeto:
   - **pages/**: Páginas da interface, como `LoginPage`, `RegistrationPage` e `Profile`.
   - **providers/**: Gerenciadores de estado, como `UserProvider`.
   - **widgets/**: Componentes reutilizáveis, como `FavoriteButton` e `MenuBarCustom`.
+  - Usando firbase de banco de dados
 
 - **pubspec.yaml**: Arquivo de configuração do projeto onde estão listadas todas as dependências.
 
@@ -99,11 +110,15 @@ Aqui estão os principais diretórios e arquivos do projeto:
     - Como os usuarios estão mockados, enfrentamos problemas na criação e armazenamento de um novo usuario
 - Avatar do usuario
     - Não conseguimos fazer o flutter reconhecer as imagens, algumas funcionam e outras não. Não conseguimos identificar o problema
+- Get Usuario para exibir nome na tela de perfil não está funcionando
 
-## Problemas Conhecidos
+## Problemas Conhecidos/Bugs
 
 Caso ocorra algum problema com permissões ou configurações de ambiente, tente executar:
 
+Entrega 2:
+  - Bug identificado ao dar get no nome de usuario
+  - Bug ao mostrar nome de usuario
 ```bash
 flutter doctor
 
