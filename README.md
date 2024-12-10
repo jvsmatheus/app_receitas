@@ -24,7 +24,7 @@ Integrantes do Projeto
       - Configuração AuthCheck
       - Autenticação Login
       - Registro de novo usuario
-      - 
+      
 ## Usuario para teste
 Usuarios para login:
 login: teste@gmail.com
@@ -91,7 +91,7 @@ Aqui estão os principais diretórios e arquivos do projeto:
   - **pages/**: Páginas da interface, como `LoginPage`, `RegistrationPage` e `Profile`.
   - **providers/**: Gerenciadores de estado, como `UserProvider`.
   - **widgets/**: Componentes reutilizáveis, como `FavoriteButton` e `MenuBarCustom`.
-  - Usando firbase de banco de dados
+  - Usando firebase de banco de dados
 
 - **pubspec.yaml**: Arquivo de configuração do projeto onde estão listadas todas as dependências.
 
