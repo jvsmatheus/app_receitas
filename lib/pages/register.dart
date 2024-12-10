@@ -149,7 +149,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       email: _emailController.text,
                       password: _passwordController.text,
                       name: _nameController.text,
-                      description: _descriptionController.text
+                      description: _descriptionController.text,
+                      context: context
                     );
                   },
                   child: const Text('Cadastrar'),

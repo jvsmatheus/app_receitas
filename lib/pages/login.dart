@@ -2,6 +2,7 @@ import 'package:app_receitas/pages/home.dart';
 import 'package:app_receitas/pages/register.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/repositories/user_repository.dart';
+import 'package:app_receitas/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -98,7 +99,13 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _authenticate,
+                  onPressed: () => {
+                    AuthService().signin(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        context: context
+                    )
+                  },
                   child: const Text('Login'),
                 ),
               ),
