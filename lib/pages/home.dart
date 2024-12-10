@@ -15,6 +15,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   List<Recipe> _filteredRecipes = RecipeRepository.table; // Lista filtrada
 
+
+
   void _filterRecipes(String query) {
     final allRecipes = RecipeRepository.table;
     setState(() {

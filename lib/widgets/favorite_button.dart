@@ -27,7 +27,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       _isFavorited = !_isFavorited;
     });
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.toggleFavorite(widget.recipe);
+    // userProvider.toggleFavorite(widget.recipe);
   }
 
   @override

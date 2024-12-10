@@ -16,30 +16,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final repository = UserRepository.table;
   bool _isPasswordVisible = false;
 
-  void _authenticate() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    for (var item in repository) {
-      if (email == item.email && password == item.password) {
-        Provider.of<UserProvider>(context, listen: false).setUser(item);
-
-        // Substitui a tela de login pela tela inicial
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
-        return;
-      }
+  login() async {
+    try {
+      await context.read<AuthService>().login(_emailController.text, _passwordController.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message)),
+      );
     }
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('E-mail ou senha incorretos.')),
-    );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => {
-                    AuthService().signin(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                        context: context
-                    )
+                    login()
                   },
                   child: const Text('Login'),
                 ),

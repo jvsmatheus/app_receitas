@@ -14,17 +14,17 @@ class UserProvider extends ChangeNotifier {
 
   bool get isLoggedIn => _user != null;
 
-  void toggleFavorite(Recipe recipe) {
-    print(_user);
-    if (_user != null) {
-      if (_user!.favorites.contains(recipe)) {
-        _user!.favorites.remove(recipe);
-      } else {
-        _user!.favorites.add(recipe);
-      }
-      notifyListeners();
-    }
-  }
+  // void toggleFavorite(Recipe recipe) {
+  //   print(_user);
+  //   if (_user != null) {
+  //     if (_user!.favorites.contains(recipe)) {
+  //       _user!.favorites.remove(recipe);
+  //     } else {
+  //       _user!.favorites.add(recipe);
+  //     }
+  //     notifyListeners();
+  //   }
+  // }
 
   void clearUser() {
     _user = null;

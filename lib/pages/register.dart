@@ -1,6 +1,7 @@
 import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/services/auth_service.dart';
+import 'package:app_receitas/widgets/auth_check.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,7 @@ class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  _RegistrationPageState createState() => _RegistrationPageState();
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
@@ -16,22 +17,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
 
   bool _isPasswordVisible = false;
+  bool loading = false;
 
-  void _register() {
-    if (_formKey.currentState!.validate()) {
-      final newUser = UserModel
-      (
-        email: _emailController.text,
-        name: _nameController.text,
-        password: _passwordController.text,
+  void register() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().register(_emailController.text, _passwordController.text);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AuthCheck()),
       );
-      Provider.of<UserProvider>(context,listen: false).setUser(newUser);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Cadastro realizado com sucesso!')),
-      );
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
 
@@ -125,13 +126,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () async {
-                    await AuthService().signup(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      name: _nameController.text,
-                      context: context
-                    );
+                  onPressed: () {
+                    register();
                   },
                   child: const Text('Cadastrar'),
                 ),
