@@ -1,4 +1,5 @@
 import 'package:app_receitas/pages/profile.dart';
+import 'package:app_receitas/services/user_service.dart';
 import 'package:app_receitas/widgets/favorite_recipes.dart';
 import 'package:app_receitas/repositories/recipe_repository.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,11 @@ class _HomePageState extends State<HomePage> {
               recipe.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
+  }
+
+  void _listUsers() {
+    var service = new UserService();
+    service.getUsers();
   }
 
   @override
@@ -83,6 +89,12 @@ class _HomePageState extends State<HomePage> {
             Flexible(
               flex: 5,
               child: FavoriteRecipes(recipes: _filteredRecipes),
+            ),
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                _listUsers();
+              },
             ),
           ],
         ),

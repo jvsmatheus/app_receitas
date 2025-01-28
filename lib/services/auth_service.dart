@@ -1,4 +1,5 @@
 import 'package:app_receitas/repositories/user_repository.dart';
+import 'package:app_receitas/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,10 @@ class AuthException implements Exception {
 
 class AuthService extends ChangeNotifier{
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   User? usuario;
   bool isLoading = true;
+  var service = UserService();
 
   AuthService() {
     _authCheck();
@@ -36,6 +38,7 @@ class AuthService extends ChangeNotifier{
   register(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      service.createUser()
 
       _getUser();
     } on FirebaseAuthException catch (e) {
