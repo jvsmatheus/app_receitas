@@ -30,14 +30,9 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _listUsers() {
-    
-  }
-
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-    final userModel = authService.userModel;
+    final userModel = Provider.of<AuthService>(context).userModel;
 
     return Scaffold(
       appBar: AppBar(

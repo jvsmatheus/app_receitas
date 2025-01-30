@@ -32,7 +32,9 @@ class AuthService extends ChangeNotifier{
 
   _getUser() {
     usuario = _auth.currentUser;
+    if (usuario != null) {
     _getUserModel(usuario!.uid);
+    }
     notifyListeners();
   }
 

@@ -35,6 +35,27 @@ class UserService {
     }
   }
 
+  getUserFavorites(List<String> favorites) async {
+    if (favorites.isEmpty) {
+      return [];
+    }
+
+    final uri = Uri.parse("https://67941aa25eae7e5c4d90bf49.mockapi.io/usuarios?${_buildQueryParams(favorites)}");
+
+    final response = await http.get(uri, headers: {"Content-Type": "application/json"});
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Falha ao carregar favoritos');
+    }
+  }
+
+  // Função auxiliar para criar query params
+  _buildQueryParams(List<String> favorites) {
+    return favorites.map((id) => "id=$id").join("&");
+  }
+
   createUser(Map<String, dynamic> user) async {
     final response = await http.post(
       Uri.parse(_baseUrl),

@@ -18,7 +18,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    /*final user = Provider.of<UserProvider>(context).user;*/
+    final userModel = Provider.of<AuthService>(context).userModel;
 
     recipeDetails(Recipe recipe) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => RecipePage(recipe: recipe)));
@@ -32,9 +32,10 @@ class _ProfileState extends State<Profile> {
             icon: const Icon(Icons.logout_outlined),
             onPressed: () => {
               context.read<AuthService>().logout(),
-            Navigator.pushReplacement(
+            Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const AuthCheck()),
+            (Route<dynamic> route) => false
             )
             }
           ),
@@ -54,7 +55,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Usuário',
+                    userModel!.name!,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
