@@ -19,7 +19,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   void initState() {
     super.initState();
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    _isFavorited = userProvider.user?.favorites.contains(widget.recipe) ?? false;
+    _isFavorited = userProvider.user?.favorites?.contains(widget.recipe) ?? false;
   }
 
   void _toggleFavorite() {

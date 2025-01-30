@@ -24,10 +24,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void register() async {
     setState(() => loading = true);
     try {
-      await context.read<AuthService>().register(_emailController.text, _passwordController.text);
-      Navigator.pushReplacement(
+      await context.read<AuthService>().register(_nameController.text, _emailController.text, _passwordController.text);
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const AuthCheck()),
+        (Route<dynamic> route) => false
       );
     } on AuthException catch (e) {
       setState(() => loading = false);

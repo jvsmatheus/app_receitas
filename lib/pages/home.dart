@@ -1,9 +1,11 @@
 import 'package:app_receitas/pages/profile.dart';
+import 'package:app_receitas/services/auth_service.dart';
 import 'package:app_receitas/services/user_service.dart';
 import 'package:app_receitas/widgets/favorite_recipes.dart';
 import 'package:app_receitas/repositories/recipe_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:app_receitas/models/recipe.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,12 +31,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _listUsers() {
-    var service = new UserService();
-    service.getUsers();
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    final userModel = authService.userModel;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("SABORCRAFT"),
@@ -93,7 +97,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                _listUsers();
+                print(userModel);
               },
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/repositories/user_repository.dart';
 import 'package:app_receitas/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,7 @@ class AuthService extends ChangeNotifier{
   User? usuario;
   bool isLoading = true;
   var service = UserService();
+  UserModel? userModel;
 
   AuthService() {
     _authCheck();
@@ -25,20 +27,51 @@ class AuthService extends ChangeNotifier{
       usuario = user;
       isLoading = false;
       notifyListeners();
-      print('chegou');
     });
   }
 
   _getUser() {
     usuario = _auth.currentUser;
+    _getUserModel(usuario!.uid);
     notifyListeners();
-    print('chegou 2');
   }
 
-  register(String email, String password) async {
+ _getUserModel(String authId) async {
+  var userModelResponse = await service.getUserByAuthId(authId);
+
+  if (userModelResponse.isNotEmpty) {
+    var userData = userModelResponse[0]; // Pega o primeiro item da lista (um mapa)
+
+    var newUser = UserModel(
+      authId: userData['authId'], // Acesse os valores do mapa corretamente
+      name: userData['name'],
+      email: userData['email'],
+      password: userData['password'],
+      favorites: List<String>.from(userData['favorites']), // Garante que seja uma lista de String
+    );
+
+    print(newUser);
+    userModel = newUser; // Atualiza o estado do usuário
+    notifyListeners(); // Notifica a UI para atualizar
+  } else {
+    print("Usuário não encontrado!");
+  }
+}
+
+
+  register(String name, String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      service.createUser()
+      var user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      var newUser = UserModel(
+      authId: user.user?.uid,
+      name: name,
+      email: email,
+      password: password,
+      favorites: [],
+      );
+      
+      service.createUser(newUser.toJson());
+      
 
       _getUser();
     } on FirebaseAuthException catch (e) {

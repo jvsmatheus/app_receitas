@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class UserService {
   // URL base da API
-  static const String _baseUrl = 'https://jsonplaceholder.typicode.com/users';
+  static const String _baseUrl = 'https://67941aa25eae7e5c4d90bf49.mockapi.io/usuarios';
 
   getUsers() async {
     final response = await http.get(Uri.parse(_baseUrl));
@@ -17,6 +17,16 @@ class UserService {
 
   getUserById(int id) async {
     final response = await http.get(Uri.parse('$_baseUrl/$id'));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load user');
+    }
+  }
+
+  getUserByAuthId(String authId) async {
+    final response = await http.get(Uri.parse('$_baseUrl?authId=$authId'));
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
