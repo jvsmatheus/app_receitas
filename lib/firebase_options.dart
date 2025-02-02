@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'mobile-4ee90',
     storageBucket: 'mobile-4ee90.firebasestorage.app',
   );
+
 }
