@@ -1,6 +1,7 @@
 import 'package:app_receitas/models/recipe.dart';
 import 'package:app_receitas/pages/login.dart';
 import 'package:app_receitas/pages/recipe.dart';
+import 'package:app_receitas/providers/env_provider.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
   @override
   Widget build(BuildContext context) {
     final userModel = Provider.of<AuthService>(context).userModel;
@@ -25,6 +27,7 @@ class _ProfileState extends State<Profile> {
     }
 
     return Scaffold(
+      
       appBar: AppBar(
         title: const Text('Meu Perfil'),
         actions: [
@@ -51,7 +54,7 @@ class _ProfileState extends State<Profile> {
                 children: [
                   const CircleAvatar(
                     radius: 40,
-                    // backgroundImage: AssetImage('assets/images/user.jpg'),
+                    // backgroundImage: NetworkImage(Uri.),
                   ),
                   const SizedBox(height: 10),
                   Text(

@@ -8,6 +8,7 @@ class UserModel {
   String? name;
   String? email;
   String? password;
+  String? imgUrl;
   List<String>? favorites;
 
   UserModel({
@@ -16,6 +17,7 @@ class UserModel {
     this.name,
     this.email,
     this.password,
+    this.imgUrl,
     this.favorites,
   });
 
@@ -26,6 +28,7 @@ class UserModel {
         name: json['name']! as String,
         email: json['email']! as String,
         password: json['password']! as String,
+        imgUrl: json['imgUrl']! as String,
         favorites: (json['favorites'] as List<dynamic>? ?? []).cast<String>(),
     );
 
@@ -50,13 +53,14 @@ class UserModel {
     'name': name,
     'email': email,
     'password': password,
+    'imgUrl': imgUrl,
     'favorites': favorites,
   };
 }
 
   @override
   String toString() {
-    return 'UserModel{name: $name, email: $email, password: $password, favorites: $favorites}';
+    return 'UserModel{id: $id, authId: $authId, name: $name, email: $email, password: $password, imgUrl: $imgUrl, favorites: $favorites, }';
   }
 }
 

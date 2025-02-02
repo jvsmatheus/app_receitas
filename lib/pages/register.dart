@@ -28,6 +28,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   bool loading = false;
   bool uploading = false;
   double total = 0;
+  String userImgRef = '';
 
   Future<XFile?> getImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -36,7 +37,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   } 
 
   Future<UploadTask> upload(String path) async {
-    File file = new File(path);
+    File file = File(path);
     try {
       String ref = 'images/img-${DateTime.now().toString()}.jpg';
       return storage.ref(ref).putFile(file);
@@ -60,6 +61,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         else if (snapshot.state == TaskState.success) {
           setState(() {
             uploading = false;
+            userImgRef = snapshot.metadata!.fullPath;
           });
         }
       });
@@ -69,7 +71,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void register() async {
     setState(() => loading = true);
     try {
-      await context.read<AuthService>().register(_nameController.text, _emailController.text, _passwordController.text);
+      await context.read<AuthService>().register(_nameController.text, _emailController.text, _passwordController.text, userImgRef);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const AuthCheck()),

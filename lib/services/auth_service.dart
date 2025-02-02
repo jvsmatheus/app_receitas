@@ -42,26 +42,27 @@ class AuthService extends ChangeNotifier{
   var userModelResponse = await service.getUserByAuthId(authId);
 
   if (userModelResponse.isNotEmpty) {
-    var userData = userModelResponse[0]; // Pega o primeiro item da lista (um mapa)
+    var userData = userModelResponse[0];
 
     var newUser = UserModel(
-      authId: userData['authId'], // Acesse os valores do mapa corretamente
+      id: userData['id'],
+      authId: userData['authId'],
       name: userData['name'],
       email: userData['email'],
+      imgUrl: userData['imgUrl'],
       password: userData['password'],
-      favorites: List<String>.from(userData['favorites']), // Garante que seja uma lista de String
+      favorites: List<String>.from(userData['favorites']),
     );
 
-    print(newUser);
-    userModel = newUser; // Atualiza o estado do usuário
-    notifyListeners(); // Notifica a UI para atualizar
+    userModel = newUser;
+    notifyListeners();
   } else {
     print("Usuário não encontrado!");
   }
 }
 
 
-  register(String name, String email, String password) async {
+  register(String name, String email, String password, userImgRef) async {
     try {
       var user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       var newUser = UserModel(
@@ -69,6 +70,7 @@ class AuthService extends ChangeNotifier{
       name: name,
       email: email,
       password: password,
+      imgUrl: userImgRef,
       favorites: [],
       );
       
