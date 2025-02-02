@@ -28,13 +28,15 @@ void main() async {
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => UserRepository(auth: context.read<AuthService>())),
       ],
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Future<FirebaseApp> _inicializacao = Firebase.initializeApp();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

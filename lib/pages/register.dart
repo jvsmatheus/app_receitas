@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/services/auth_service.dart';
 import 'package:app_receitas/widgets/auth_check.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -18,8 +22,49 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  final FirebaseStorage storage = FirebaseStorage.instance;
+
   bool _isPasswordVisible = false;
   bool loading = false;
+  bool uploading = false;
+  double total = 0;
+
+  Future<XFile?> getImage() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    return image;
+  } 
+
+  Future<UploadTask> upload(String path) async {
+    File file = new File(path);
+    try {
+      String ref = 'images/img-${DateTime.now().toString()}.jpg';
+      return storage.ref(ref).putFile(file);
+    } on FirebaseException catch (e) {
+      throw Exception('Erro no upload: ${e.code}');
+    }
+  } 
+
+  pickAndUploadImage() async {
+    XFile? file = await getImage();
+
+    if (file != null) {
+      UploadTask task = await upload(file.path);
+      task.snapshotEvents.listen((TaskSnapshot snapshot) async {
+        if (snapshot.state == TaskState.running) {
+          setState(() {
+            uploading = true;
+            total = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          });
+        }
+        else if (snapshot.state == TaskState.success) {
+          setState(() {
+            uploading = false;
+          });
+        }
+      });
+    }
+  }
 
   void register() async {
     setState(() => loading = true);
@@ -120,6 +165,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   }
                   return null;
                 },
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    pickAndUploadImage();
+                  },
+                  child: uploading ? Text('${total.round()}% enviado') : const Text("Adicionar Imagem"),
+                ),
               ),
               const SizedBox(height: 24),
 
