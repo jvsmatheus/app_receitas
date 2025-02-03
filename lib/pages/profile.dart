@@ -1,4 +1,5 @@
 import 'package:app_receitas/models/recipe.dart';
+import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/pages/login.dart';
 import 'package:app_receitas/pages/recipe.dart';
 import 'package:app_receitas/providers/env_provider.dart';
@@ -17,30 +18,28 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   @override
   Widget build(BuildContext context) {
-    final userModel = Provider.of<AuthService>(context).userModel;
+    UserModel? userModel = Provider.of<AuthService>(context).userModel;
 
     recipeDetails(Recipe recipe) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => RecipePage(recipe: recipe)));
     }
 
     return Scaffold(
-      
       appBar: AppBar(
         title: const Text('Meu Perfil'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout_outlined),
-            onPressed: () => {
-              context.read<AuthService>().logout(),
-            Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const AuthCheck()),
-            (Route<dynamic> route) => false
-            )
-            }
+            onPressed: () {
+              context.read<AuthService>().logout();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const AuthCheck()),
+                (Route<dynamic> route) => false,
+              );
+            },
           ),
         ],
       ),
@@ -52,9 +51,11 @@ class _ProfileState extends State<Profile> {
             Center(
               child: Column(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 40,
-                    // backgroundImage: NetworkImage(Uri.),
+                    backgroundImage: userModel?.imgUrl != null && userModel!.imgUrl!.isNotEmpty
+                        ? NetworkImage(userModel.imgUrl!)
+                        : const AssetImage('assets/default_avatar.png') as ImageProvider,
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -76,39 +77,9 @@ class _ProfileState extends State<Profile> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 10),
-
-            // Lista de Receitas Favoritas
-            /*Expanded(
-              child: user?.favorites.isNotEmpty == true
-                  ? ListView.builder(
-                itemCount: user!.favorites.length,
-                itemBuilder: (context, index) {
-                  // final recipe = user.favorites[index];
-                  // return Card(
-                  //   margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  //   child: ListTile(
-                  //     leading: CircleAvatar(
-                  //       backgroundImage: AssetImage(recipe.image),
-                  //     ),
-                  //     title: Text(recipe.name),
-                  //     subtitle: Text(recipe.type),
-                  //     onTap: () => recipeDetails(recipe),
-                  //   ),
-                  // );
-                },
-              )
-                  : const Center(
-                child: Text(
-                  'Nenhuma receita favorita encontrada.',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-            ),*/
           ],
         ),
       ),
     );
   }
 }
-

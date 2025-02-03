@@ -62,5 +62,9 @@ class UserModel {
   String toString() {
     return 'UserModel{id: $id, authId: $authId, name: $name, email: $email, password: $password, imgUrl: $imgUrl, favorites: $favorites, }';
   }
+  
+  String getImgUrl() {
+    return imgUrl!;
+  }
 }
 

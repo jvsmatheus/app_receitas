@@ -2,6 +2,7 @@ import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/repositories/user_repository.dart';
 import 'package:app_receitas/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class AuthException implements Exception {
@@ -62,34 +63,42 @@ class AuthService extends ChangeNotifier{
 }
 
 
-  register(String name, String email, String password, userImgRef) async {
-    try {
-      var user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      var newUser = UserModel(
-      authId: user.user?.uid,
+  register(String name, String email, String password, String userImgRef) async {
+  try {
+    var user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    String? uid = user.user?.uid;
+
+    if (uid == null) {
+      throw AuthException("Erro ao obter o UID do usuário.");
+    }
+
+    String imgUrl = await FirebaseStorage.instance.ref(userImgRef).getDownloadURL();
+
+    var newUser = UserModel(
+      authId: uid,
       name: name,
       email: email,
       password: password,
-      imgUrl: userImgRef,
+      imgUrl: imgUrl,
       favorites: [],
-      );
-      
-      service.createUser(newUser.toJson());
-      
+    );
 
-      _getUser();
-    } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          throw AuthException('Senha muito fraca');
-        }
-        if (e.code == 'email-already-in-use') {
-          throw AuthException('E-mail já cadastrado');
-        }
-        if (e.code == 'channel-error') {
-          throw AuthException('Tenha certaza que preencheu todos os campos');
-        }
+    await service.createUser(newUser.toJson());
+
+    await _getUser();
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      throw AuthException('Senha muito fraca');
+    }
+    if (e.code == 'email-already-in-use') {
+      throw AuthException('E-mail já cadastrado');
+    }
+    if (e.code == 'channel-error') {
+      throw AuthException('Tenha certeza que preencheu todos os campos');
     }
   }
+}
+
 
   login(String email, String password) async {
     try {
