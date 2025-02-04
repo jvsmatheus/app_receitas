@@ -76,6 +76,33 @@ class _ProfileState extends State<Profile> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            Expanded(
+              child: userModel?.favorites != null && userModel!.favorites!.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: userModel.favorites?.length,
+                      itemBuilder: (context, index) {
+                        final recipe = userModel!.favorites[index];
+                        // return Card(
+                        //   margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        //   child: ListTile(
+                        //     leading: CircleAvatar(
+                        //       backgroundImage: AssetImage(recipe.image),
+                        //     ),
+                        //     title: Text(recipe.name),
+                        //     subtitle: Text(recipe.type),
+                        //     onTap: () => recipeDetails(recipe),
+                        //   ),
+                        // );
+                      },
+                    )
+                  : const Center(
+                      child: Text(
+                        'Nenhuma receita favorita encontrada.',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+            ),
+
           ],
         ),
       ),

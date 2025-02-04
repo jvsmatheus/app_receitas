@@ -1,17 +1,42 @@
 class Recipe {
-  int? id;
-  String name;
-  List<String> ingredients;
-  List<String> prepare;
-  String image;
-  String type;
+  String? id;
+  String? title;
+  int? preparationTime;
+  List<String>? preparationMethod;
+  List<String>? ingredients;
+  String? imgUrl;
+  String? type;
 
   Recipe({
     this.id,
-    required this.name,
-    required this.ingredients,
-    required this.prepare,
-    required this.image,
-    required this.type,
+    this.title,
+    this.preparationTime,
+    this.preparationMethod,
+    this.ingredients,
+    this.imgUrl,
+    this.type,
   });
+
+  Recipe.fromJson(Map<String, Object?> json) :
+    this(
+        id: json['id']! as String,
+        title: json['title']! as String,
+        preparationTime: json['type'] as int,
+        preparationMethod: (json['type'] as List<dynamic>? ?? []).cast<String>(),
+        ingredients: (json['type'] as List<dynamic>? ?? []).cast<String>(),
+        imgUrl: json['imgUrl']! as String,
+        type: json['type'] as String,
+    );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'preparationTime': preparationTime,
+      'preparationMethod': preparationMethod,
+      'ingredients': ingredients,
+      'imgUrl': imgUrl,
+      'type': type,
+    };
+  }
 }
