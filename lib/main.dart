@@ -1,6 +1,4 @@
 import 'package:app_receitas/firebase_options.dart';
-import 'package:app_receitas/pages/login.dart';
-import 'package:app_receitas/providers/env_provider.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/repositories/user_repository.dart';
 import 'package:app_receitas/services/auth_service.dart';
@@ -27,8 +25,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (context) => UserRepository(auth: context.read<AuthService>())),
-        ChangeNotifierProvider(create: (context) => EnvProvider()),
+        ChangeNotifierProvider(create: (context) => UserRepository(auth: context.read<AuthService>()))
       ],
       child: MyApp(),
     ),

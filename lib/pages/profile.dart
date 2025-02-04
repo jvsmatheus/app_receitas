@@ -2,7 +2,6 @@ import 'package:app_receitas/models/recipe.dart';
 import 'package:app_receitas/models/user.dart';
 import 'package:app_receitas/pages/login.dart';
 import 'package:app_receitas/pages/recipe.dart';
-import 'package:app_receitas/providers/env_provider.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,7 @@ class _ProfileState extends State<Profile> {
                     radius: 40,
                     backgroundImage: userModel?.imgUrl != null && userModel!.imgUrl!.isNotEmpty
                         ? NetworkImage(userModel.imgUrl!)
-                        : const AssetImage('assets/default_avatar.png') as ImageProvider,
+                        : const AssetImage('assets/images/default_avatar.png') as ImageProvider,
                   ),
                   const SizedBox(height: 10),
                   Text(

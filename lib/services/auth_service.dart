@@ -72,7 +72,8 @@ class AuthService extends ChangeNotifier{
       throw AuthException("Erro ao obter o UID do usuário.");
     }
 
-    String imgUrl = await FirebaseStorage.instance.ref(userImgRef).getDownloadURL();
+  
+    String imgUrl = userImgRef.isNotEmpty ? await FirebaseStorage.instance.ref(userImgRef).getDownloadURL() : '';
 
     var newUser = UserModel(
       authId: uid,
