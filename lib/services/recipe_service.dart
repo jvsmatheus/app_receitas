@@ -6,14 +6,26 @@ class RecipeService {
   static const String _baseUrl = 'https://67941aa25eae7e5c4d90bf49.mockapi.io/receitas';
 
   getRecipes() async {
-    final response = await http.get(Uri.parse(_baseUrl));
+  final response = await http.get(Uri.parse(_baseUrl));
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Failed to load recipes');
-    }
+  if (response.statusCode == 200) {
+    List<dynamic> decodedJson = jsonDecode(response.body);
+    List<Map<String, dynamic>> recipes = decodedJson.map((recipe) {
+      return {
+        "id": recipe["id"],
+        "title": recipe["title"],
+        "preparationTime": recipe["preparationTime"],
+        "preparationMethod": List<String>.from(recipe["preparationMethod"]),
+        "ingredients": List<String>.from(recipe["ingredients"]),
+        "imgUrl": recipe["imgUrl"],
+        "type": recipe["type"]
+      };
+    }).toList();
+    return recipes;
+  } else {
+    throw Exception('Failed to load recipes');
   }
+}
 
   Future<List<dynamic>> getRecipesByIds(List<int> ids) async {
     List<Future<dynamic>> requests = ids.map((id) => getRecipeById(id)).toList();

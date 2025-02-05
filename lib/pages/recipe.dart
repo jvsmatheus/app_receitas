@@ -19,9 +19,9 @@ class _RecipePageState extends State<RecipePage> {
   void initState() {
     super.initState();
     // Inicializa todos os ingredientes como desmarcados
-    for (var ingredient in widget.recipe.ingredients) {
-      ingredientCheckStatus[ingredient] = false;
-    }
+    // for (var ingredient in widget.recipe.ingredients) {
+    //   ingredientCheckStatus[ingredient] = false;
+    // }
   }
 
   @override
@@ -29,7 +29,7 @@ class _RecipePageState extends State<RecipePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.recipe.name),
+          title: Text(widget.recipe.title!),
           actions: [FavoriteButton(recipe: widget.recipe,)],
         ),
         body: SingleChildScrollView(
@@ -41,7 +41,8 @@ class _RecipePageState extends State<RecipePage> {
                 width: double.infinity,
                 height: 180,
                 child: Image.asset(
-                  widget.recipe.image,
+                  'assets/images/user.jpg',
+                  // widget.recipe.image,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -62,7 +63,7 @@ class _RecipePageState extends State<RecipePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
-                  children: widget.recipe.ingredients.map((text) {
+                  children: widget.recipe.ingredients!.map((text) {
                     return Row(
                       children: [
                         Checkbox(
@@ -109,7 +110,7 @@ class _RecipePageState extends State<RecipePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
-                  children: widget.recipe.prepare.map((text) {
+                  children: widget.recipe.preparationMethod!.map((text) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

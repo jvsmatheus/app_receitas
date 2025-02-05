@@ -1,5 +1,6 @@
 import 'package:app_receitas/pages/profile.dart';
 import 'package:app_receitas/services/auth_service.dart';
+import 'package:app_receitas/services/recipe_service.dart';
 import 'package:app_receitas/services/user_service.dart';
 import 'package:app_receitas/widgets/favorite_recipes.dart';
 import 'package:app_receitas/repositories/recipe_repository.dart';
@@ -16,16 +17,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
-  List<Recipe> _filteredRecipes = RecipeRepository.table; // Lista filtrada
+  final recipeService = RecipeService();
 
+  List<Recipe> _filteredRecipes = [];
 
+  @override
+  void initState() {
+    super.initState();
+    // _filteredRecipes = recipeService.getRecipes();
+  }
 
   void _filterRecipes(String query) {
-    final allRecipes = RecipeRepository.table;
+    final allRecipes = recipeService.getRecipes();
     setState(() {
       _filteredRecipes = allRecipes
           .where((recipe) =>
-              recipe.name.toLowerCase().contains(query.toLowerCase()))
+              recipe.title!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -92,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                print(userModel);
+                recipeService.getRecipes();
               },
             ),
           ],

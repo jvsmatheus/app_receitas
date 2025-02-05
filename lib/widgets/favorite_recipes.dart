@@ -29,15 +29,16 @@ class _FavoriteRecipesState extends State<FavoriteRecipes> {
           leading: SizedBox(
             width: 110, // Define uma largura fixa para a imagem
             child: Image.asset(
-              recipe.image,
+              'assets/images/user.jpg',
+              // recipe.image,
               fit: BoxFit.cover,
             ),
           ),
           title: Text(
-            recipe.name,
+            'teste',
             style: const TextStyle(fontSize: 20),
           ),
-          subtitle: Text(recipe.type),
+          subtitle: Text(recipe.type!),
           trailing: FavoriteButton(recipe: recipe),
           onTap: () => recipeDetails(recipe),
         );

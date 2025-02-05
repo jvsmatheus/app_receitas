@@ -81,7 +81,7 @@ class _ProfileState extends State<Profile> {
                   ? ListView.builder(
                       itemCount: userModel.favorites?.length,
                       itemBuilder: (context, index) {
-                        final recipe = userModel!.favorites[index];
+                        // final recipe = userModel!.favorites[index];
                         // return Card(
                         //   margin: const EdgeInsets.symmetric(vertical: 8.0),
                         //   child: ListTile(
