@@ -19,21 +19,20 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   final recipeService = RecipeService();
 
-  List<Recipe> _filteredRecipes = [];
+  Future<List<Recipe>> _filteredRecipes = Future.value([]);
 
   @override
   void initState() {
     super.initState();
-    // _filteredRecipes = recipeService.getRecipes();
+    _filteredRecipes = recipeService.getRecipes();
   }
 
-  void _filterRecipes(String query) {
-    final allRecipes = recipeService.getRecipes();
+  void _filterRecipes(String query) async {
+    final allRecipes = await recipeService.getRecipes();
     setState(() {
-      _filteredRecipes = allRecipes
-          .where((recipe) =>
-              recipe.title!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      _filteredRecipes = Future.value(allRecipes.where((recipe) {
+        return recipe.title!.toLowerCase().contains(query.toLowerCase());
+      }).toList());
     });
   }
 
@@ -47,16 +46,11 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (_) => const Profile())
-              );
-            },
-             icon: const Icon(
-              Icons.person
-             )
-          )
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const Profile()));
+              },
+              icon: const Icon(Icons.person))
         ],
       ),
       body: Padding(
@@ -94,7 +88,20 @@ class _HomePageState extends State<HomePage> {
             ),
             Flexible(
               flex: 5,
-              child: FavoriteRecipes(recipes: _filteredRecipes),
+              child: FutureBuilder<List<Recipe>>(
+                future: _filteredRecipes,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Erro ao carregar receitas'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('Nenhuma receita encontrada'));
+                  } else {
+                    return FavoriteRecipes(recipes: snapshot.data!);
+                  }
+                },
+              ),
             ),
             IconButton(
               icon: const Icon(Icons.search),

@@ -35,7 +35,7 @@ class _FavoriteRecipesState extends State<FavoriteRecipes> {
             ),
           ),
           title: Text(
-            'teste',
+            recipe.title!,
             style: const TextStyle(fontSize: 20),
           ),
           subtitle: Text(recipe.type!),

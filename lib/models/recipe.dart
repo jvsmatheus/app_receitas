@@ -21,9 +21,9 @@ class Recipe {
     this(
         id: json['id']! as String,
         title: json['title']! as String,
-        preparationTime: json['type'] as int,
-        preparationMethod: (json['type'] as List<dynamic>? ?? []).cast<String>(),
-        ingredients: (json['type'] as List<dynamic>? ?? []).cast<String>(),
+        preparationTime: json['preparationTime'] as int,
+        preparationMethod: (json['preparationMethod'] as List<dynamic>? ?? []).cast<String>(),
+        ingredients: (json['ingredients'] as List<dynamic>? ?? []).cast<String>(),
         imgUrl: json['imgUrl']! as String,
         type: json['type'] as String,
     );
