@@ -28,10 +28,17 @@ class _FavoriteRecipesState extends State<FavoriteRecipes> {
         return ListTile(
           leading: SizedBox(
             width: 110, // Define uma largura fixa para a imagem
-            child: Image.asset(
-              'assets/images/user.jpg',
-              // recipe.image,
-              fit: BoxFit.cover,
+            child: Image.network(
+              recipe.imgUrl!,
+              fit: BoxFit
+                  .cover, // Para garantir que a imagem preencha o espaço definido
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const Center(child: CircularProgressIndicator());
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.broken_image, size: 50);
+              },
             ),
           ),
           title: Text(
