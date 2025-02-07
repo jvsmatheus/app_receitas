@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 
 class UserService {
   // URL base da API
-  static const String _baseUrl = 'https://67941aa25eae7e5c4d90bf49.mockapi.io/usuarios';
+  static const String _baseUrl =
+      'https://67941aa25eae7e5c4d90bf49.mockapi.io/usuarios';
 
   getUsers() async {
     final response = await http.get(Uri.parse(_baseUrl));
@@ -40,9 +41,11 @@ class UserService {
       return [];
     }
 
-    final uri = Uri.parse("https://67941aa25eae7e5c4d90bf49.mockapi.io/usuarios?${_buildQueryParams(favorites)}");
+    final uri = Uri.parse(
+        "https://67941aa25eae7e5c4d90bf49.mockapi.io/usuarios?${_buildQueryParams(favorites)}");
 
-    final response = await http.get(uri, headers: {"Content-Type": "application/json"});
+    final response =
+        await http.get(uri, headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -79,6 +82,22 @@ class UserService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(user),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to update user');
+    }
+  }
+
+  updateImgUrlUser(int id, String downloadUrl) async {
+    final response = await http.put(
+      Uri.parse('$_baseUrl/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({"imgUrl": downloadUrl}),
     );
 
     if (response.statusCode == 200) {

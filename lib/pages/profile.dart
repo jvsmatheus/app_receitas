@@ -1,12 +1,14 @@
-import 'package:app_receitas/models/recipe.dart';
+import 'package:app_receitas/services/image_service.dart';
+import 'package:app_receitas/services/user_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:app_receitas/models/user.dart';
-import 'package:app_receitas/pages/login.dart';
+import 'package:app_receitas/models/recipe.dart';
 import 'package:app_receitas/pages/recipe.dart';
 import 'package:app_receitas/providers/user_provider.dart';
 import 'package:app_receitas/services/auth_service.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../widgets/auth_check.dart';
 
 class Profile extends StatefulWidget {
@@ -17,13 +19,105 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final ImagePicker _picker = ImagePicker();
+  final imageService = ImageService();
+  final userService = UserService();
+
+  bool _isUploading = false;
+
+  _pickImage(UserModel user) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Selecionar imagem"),
+          content: const Text("Deseja tirar uma foto ou escolher da galeria?"),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                final XFile? file = await imageService.getImage('camera');
+                if (file != null) {
+                  setState(() {
+                    _isUploading = true;
+                  });
+
+                  UploadTask task = await imageService.upload(file.path);
+                  task.snapshotEvents.listen((TaskSnapshot snapshot) async {
+                    if (snapshot.state == TaskState.running) {
+                      print("Upload em andamento...");
+                    }
+
+                    if (snapshot.state == TaskState.success) {
+                      var updatedUser = await userService.updateImgUrlUser(
+                          int.parse(user.id!),
+                          await imageService.getImageDownloadUrl(
+                              task.snapshot.metadata!.fullPath));
+
+                      print(updatedUser);
+                      setState(() {
+                        _isUploading = false;
+                      });
+                    }
+
+                    if (snapshot.state == TaskState.error) {
+                      print("Erro no upload");
+                      setState(() {
+                        _isUploading = false;
+                      });
+                    }
+                  });
+                }
+              },
+              child: const Text("Tirar Foto"),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                final XFile? file = await imageService.getImage('gallery');
+                if (file != null) {
+                  setState(() {
+                    _isUploading = true;
+                  });
+
+                  UploadTask task = await imageService.upload(file.path);
+                  task.snapshotEvents.listen((TaskSnapshot snapshot) async {
+                    if (snapshot.state == TaskState.running) {
+                      print("Upload em andamento...");
+                    }
+
+                    if (snapshot.state == TaskState.success) {
+                      var updatedUser = await userService.updateImgUrlUser(
+                          int.parse(user.id!),
+                          await imageService.getImageDownloadUrl(
+                              task.snapshot.metadata!.fullPath));
+
+                      print(updatedUser);
+                      setState(() {
+                        _isUploading = false;
+                      });
+                    }
+
+                    if (snapshot.state == TaskState.error) {
+                      print("Erro no upload");
+                      setState(() {
+                        _isUploading = false;
+                      });
+                    }
+                  });
+                }
+              },
+              child: const Text("Escolher da Galeria"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     UserModel? userModel = Provider.of<AuthService>(context).userModel;
-
-    recipeDetails(Recipe recipe) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => RecipePage(recipe: recipe)));
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -52,10 +146,23 @@ class _ProfileState extends State<Profile> {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: userModel?.imgUrl != null && userModel!.imgUrl!.isNotEmpty
+                    backgroundImage: userModel?.imgUrl != null &&
+                            userModel!.imgUrl!.isNotEmpty
                         ? NetworkImage(userModel.imgUrl!)
-                        : const AssetImage('assets/images/default_avatar.png') as ImageProvider,
+                        : const AssetImage('assets/images/default_avatar.png')
+                            as ImageProvider,
                   ),
+                  const SizedBox(height: 10),
+                  IconButton(
+                    onPressed: () => _pickImage(userModel!),
+                    icon: Icon(Icons.photo_camera),
+                  ),
+                  if (_isUploading)
+                    Positioned.fill(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
                   const SizedBox(height: 10),
                   Text(
                     userModel?.name ?? "Usuário",
@@ -77,22 +184,12 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             Expanded(
-              child: userModel?.favorites != null && userModel!.favorites!.isNotEmpty
+              child: userModel?.favorites != null &&
+                      userModel!.favorites!.isNotEmpty
                   ? ListView.builder(
                       itemCount: userModel.favorites?.length,
                       itemBuilder: (context, index) {
-                        // final recipe = userModel!.favorites[index];
-                        // return Card(
-                        //   margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        //   child: ListTile(
-                        //     leading: CircleAvatar(
-                        //       backgroundImage: AssetImage(recipe.image),
-                        //     ),
-                        //     title: Text(recipe.name),
-                        //     subtitle: Text(recipe.type),
-                        //     onTap: () => recipeDetails(recipe),
-                        //   ),
-                        // );
+                        return Container(); // Implementação do item
                       },
                     )
                   : const Center(
@@ -102,7 +199,6 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
             ),
-
           ],
         ),
       ),
