@@ -9,12 +9,12 @@ Integrantes do Projeto
   - Criação de tela perfil
   - Criação de tela de cadastro
   - Navegação entre telas
-    Entrega 2 :
+- Entrega 2 :
     - Estrutura de banco firebase
     - Configuração AuthCheck
     - Autenticação Login
     - Registro de novo usuario
-    Entrega 3:
+- Entrega 3:
     - uso API
     - Uso firebase
     - Ajustes tela
@@ -23,22 +23,15 @@ Integrantes do Projeto
     - Criação tela de receitas
     - Criação de home page
     - Criação de login
-      Entrega 2 :
+- Entrega 2 :
       - Estrutura de banco firebase
       - Configuração AuthCheck
       - Autenticação Login
       - Registro de novo usuario
-      Entrega 3:
+- Entrega 3:
       - Utilização de recurso nativo
       - Uso firebase
       - Ajustes telas
-
-## Usuario para teste
-Usuarios para login:
-login: teste@gmail.com
-senha: 12345
-
-
 
 # App de Receitas
 
