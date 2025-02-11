@@ -46,7 +46,6 @@ class _FavoriteRecipesState extends State<FavoriteRecipes> {
             style: const TextStyle(fontSize: 20),
           ),
           subtitle: Text(recipe.type!),
-          trailing: FavoriteButton(recipe: recipe),
           onTap: () => recipeDetails(recipe),
         );
       },

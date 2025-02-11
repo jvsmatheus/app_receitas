@@ -103,12 +103,6 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                recipeService.getRecipes();
-              },
-            ),
           ],
         ),
       ),

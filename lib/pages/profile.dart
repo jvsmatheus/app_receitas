@@ -175,30 +175,6 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Receitas favoritas',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Expanded(
-              child: userModel?.favorites != null &&
-                      userModel!.favorites!.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: userModel.favorites?.length,
-                      itemBuilder: (context, index) {
-                        return Container(); // Implementação do item
-                      },
-                    )
-                  : const Center(
-                      child: Text(
-                        'Nenhuma receita favorita encontrada.',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-            ),
           ],
         ),
       ),

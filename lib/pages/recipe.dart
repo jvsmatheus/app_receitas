@@ -12,16 +12,16 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
-  // Mapeia cada ingrediente para seu estado de checkbox (marcado ou não)
   Map<String, bool> ingredientCheckStatus = {};
 
   @override
   void initState() {
     super.initState();
-    // Inicializa todos os ingredientes como desmarcados
-    // for (var ingredient in widget.recipe.ingredients) {
-    //   ingredientCheckStatus[ingredient] = false;
-    // }
+    if (widget.recipe.ingredients != null) {
+      for (var ingredient in widget.recipe.ingredients!) {
+        ingredientCheckStatus[ingredient] = false;
+      }
+    }
   }
 
   @override
@@ -29,8 +29,7 @@ class _RecipePageState extends State<RecipePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.recipe.title!),
-          actions: [FavoriteButton(recipe: widget.recipe,)],
+          title: Text(widget.recipe.title ?? "Receita"),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -40,11 +39,16 @@ class _RecipePageState extends State<RecipePage> {
               SizedBox(
                 width: double.infinity,
                 height: 180,
-                child: Image.asset(
-                  'assets/images/user.jpg',
-                  // widget.recipe.image,
-                  fit: BoxFit.cover,
-                ),
+                child: widget.recipe.imgUrl != null &&
+                        widget.recipe.imgUrl!.isNotEmpty
+                    ? Image.network(
+                        widget.recipe.imgUrl!,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        'assets/images/placeholder.jpg',
+                        fit: BoxFit.cover,
+                      ),
               ),
 
               // Título "Ingredientes"
@@ -60,39 +64,41 @@ class _RecipePageState extends State<RecipePage> {
               ),
 
               // Lista de ingredientes com checkbox
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(
-                  children: widget.recipe.ingredients!.map((text) {
-                    return Row(
-                      children: [
-                        Checkbox(
-                          value: ingredientCheckStatus[text],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              ingredientCheckStatus[text] = value ?? false;
-                            });
-                          },
-                        ),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: ingredientCheckStatus[text]!
-                                  ? Colors.grey
-                                  : Colors.black87,
-                              decoration: ingredientCheckStatus[text]!
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
+              if (widget.recipe.ingredients != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: widget.recipe.ingredients!.map((text) {
+                      return Row(
+                        children: [
+                          Checkbox(
+                            value: ingredientCheckStatus[text] ?? false,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                ingredientCheckStatus[text] = value ?? false;
+                              });
+                            },
+                          ),
+                          Expanded(
+                            child: Text(
+                              text,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: (ingredientCheckStatus[text] ?? false)
+                                    ? Colors.grey
+                                    : Colors.black87,
+                                decoration:
+                                    (ingredientCheckStatus[text] ?? false)
+                                        ? TextDecoration.lineThrough
+                                        : TextDecoration.none,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
+                        ],
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
 
               // Título "Modo de Preparo"
               const Padding(
@@ -107,31 +113,41 @@ class _RecipePageState extends State<RecipePage> {
               ),
 
               // Lista de etapas de preparo
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(
-                  children: widget.recipe.preparationMethod!.map((text) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              text,
+              if (widget.recipe.preparationMethod != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: widget.recipe.preparationMethod!
+                        .asMap()
+                        .entries
+                        .map((entry) {
+                      int index = entry.key + 1;
+                      String text = entry.value;
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("$index.",
                               style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black87,
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                              child: Text(
+                                text,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black87,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
+                        ],
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
             ],
           ),
         ),
