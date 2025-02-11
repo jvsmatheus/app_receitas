@@ -24,14 +24,14 @@ Integrantes do Projeto
     - Criação de home page
     - Criação de login
 - Entrega 2 :
-      - Estrutura de banco firebase
-      - Configuração AuthCheck
-      - Autenticação Login
-      - Registro de novo usuario
+    - Estrutura de banco firebase
+    - Configuração AuthCheck
+    - Autenticação Login
+    - Registro de novo usuario
 - Entrega 3:
-      - Utilização de recurso nativo
-      - Uso firebase
-      - Ajustes telas
+  - Utilização de recurso nativo
+  - Uso firebase
+  - Ajustes telas
 
 # App de Receitas
 
