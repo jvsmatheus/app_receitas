@@ -14,6 +14,10 @@ Integrantes do Projeto
     - Configuração AuthCheck
     - Autenticação Login
     - Registro de novo usuario
+    Entrega 3:
+    - uso API
+    - Uso firebase
+    - Ajustes tela
  
 - Matheus Jose Vieira dos Santos
     - Criação tela de receitas
@@ -24,7 +28,11 @@ Integrantes do Projeto
       - Configuração AuthCheck
       - Autenticação Login
       - Registro de novo usuario
-      
+      Entrega 3:
+      - Utilização de recurso nativo
+      - Uso firebase
+      - Ajustes telas
+
 ## Usuario para teste
 Usuarios para login:
 login: teste@gmail.com
@@ -35,12 +43,16 @@ senha: 12345
 # App de Receitas
 
 - Foi realizado crição de um app para visualização de receitas culinarias. 
-- O usuario pode adicionar receitas favoritas ao seu perfil por meio do icone de "coração".
 - Pode marcar os ingredientes já usados em sua receita escolida
 - Pesquisar por receitas especificas
 - Entrega 2:
   - Cadastro de novos usuarios
   - Login de usuario
+- Entrega 3:
+  - Uso de API para receitas
+  - Uso de recurso nativo de camera
+  - Ajustes de bugs da segunda entrega
+  - Revisado formularios
 
 ## Pré-requisitos
 
